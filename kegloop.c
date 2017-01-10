@@ -1,11 +1,11 @@
-#include "wiringPi.h"
+#include <wiringPi.h>
 
 #include <stdio.h>
 #include <stdlib.h>
 #include <stdint.h>
 
-#define PIN 7
-#define THRESHOLD 512
+#define PIN 17
+#define THRESHOLD 10
 
 int main() {
   if (wiringPiSetup () == -1)
