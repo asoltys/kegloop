@@ -5,13 +5,18 @@
 #define PIN 17
 #define THRESHOLD 2000
 
-int main() {
+int main (int argc, char *argv[]) {
   int counter;
   int current;
   int last = 0;
   FILE *infile;
+  int threshold = THRESHOLD;
 
-  for (counter=0; counter<THRESHOLD ;) {
+  if (argc==2) {
+    threshold = atoi(argv[1]);
+  }
+
+  for (counter=0; counter<threshold;) {
     infile = fopen("/sys/class/gpio/gpio17/value", "r");
     if (infile == NULL) {
       fprintf(stderr, "cannot read input file\n");
