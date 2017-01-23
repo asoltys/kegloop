@@ -4,7 +4,8 @@
   "description": "",
   "main": "index.js",
   "dependencies": {
-    "bcoin": "https://github.com/asoltys/bcoin#master"
+    "bcoin": "https://github.com/asoltys/bcoin#master",
+    "request-promise-native": "^1.0.3"
   },
   "devDependencies": {},
   "scripts": {
