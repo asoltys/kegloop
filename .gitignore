@@ -1,3 +1,4 @@
 libwiringPi.a
 /kegloop
 node_modules
+db

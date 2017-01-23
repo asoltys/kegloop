@@ -1,0 +1,23 @@
+{
+  "name": "kegloop",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "dependencies": {
+    "bcoin": "https://github.com/asoltys/bcoin#master"
+  },
+  "devDependencies": {},
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/findkiko/kegloop.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/findkiko/kegloop/issues"
+  },
+  "homepage": "https://github.com/findkiko/kegloop#readme"
+}

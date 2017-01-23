@@ -1,3 +1,4 @@
+const exec = require('child_process').exec
 const bcoin = require('bcoin')
 const chain = new bcoin.chain({
   db: 'leveldb',
@@ -14,33 +15,34 @@ const pool = new bcoin.pool({
   seeds: ['dctrl.ca']
 })
 
-pool.open().then(function() {
-  db.keysAsync("user:*").then(function(keys) {
-    return Promise.all(keys.map(function(key) {
-      return db.hgetallAsync(key).then(function(user) {
-        if (user.address) {
-          pool.watchAddress(user.address)
-          return users[user.address] = {
-            email: user.email,
-            currency: user.currency,
-            symbol: user.symbol,
-            phone: user.phone
-          }
-        }
-      })
-    }))
-  })
+if (process.env.DEBUG) {
+  pool.logger.level = 4
+}
 
-  pool.connect().then(function() {
-    pool.startSync()
+pool.open().then(function() {
+  pool.connect()
+  pool.startSync()
+
+  pool.watchAddress('1F2hpMerNN4A7LoNyJMqbfa1gZ8R13mVgQ')
+
+  pool.on('tx', function(tx) {
+    let total = 0
+    for (let i = 0; i < tx.outputs.length; i++) {
+      let output = tx.outputs[i]
+      if (output.getAddress().toBase58() == '1F2hpMerNN4A7LoNyJMqbfa1gZ8R13mVgQ') {
+        total += (output.value / 100000000).toFixed(8)
+      }
+    }
+    console.log('Received ' + total + '\n')
+    exec('loop_test.sh', function (error, stdout, stderr) {
+      console.log(stdout);
+    })
   })
 
   pool.on('error', function(err) {
-    console.log(err)
-  })
-
-  pool.on('tx', function(tx) {
-    console.log('tx received')
+    if (process.env.DEBUG) {
+      console.log(err)
+    }
   })
 })
 
